@@ -1,0 +1,94 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1020" viewBox="0 0 760 1020" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">RoboHarness-Zero: a connected execution loop</title>
+  <desc id="desc">The task instruction enters the LLM planner. The LLM exchanges decisions and context with the Harness. The Harness sends an instruction to a frozen VLA. One bidirectional connector carries VLA actions and new executor observations. Execution feedback returns from the RoboCasa executor to the Harness. A separate dashed route shows bounded direct tools used only when needed. This is a static concept overview.</desc>
+  <defs>
+    <linearGradient id="bg" x1="800" y1="0" x2="800" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#fff" />
+      <stop offset="1" stop-color="#f5f8fc" />
+    </linearGradient>
+    <linearGradient id="blue" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#328cf6" />
+      <stop offset="1" stop-color="#0058bf" />
+    </linearGradient>
+    <linearGradient id="card" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#fff" />
+      <stop offset="1" stop-color="#fbfcfe" />
+    </linearGradient>
+    <filter id="shadow" x="-25%" y="-25%" width="150%" height="170%">
+      <feDropShadow dy="10" stdDeviation="14" flood-color="#4f6e90" flood-opacity=".065" />
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="m2 1 5 4-5 4" stroke="#3a85d7" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+    <marker id="mutedArrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="m2 1 5 4-5 4" stroke="#9bb4ce" stroke-width="1.5" fill="none" stroke-linecap="round" stroke-linejoin="round" />
+    </marker>
+  </defs>
+  <rect width="760" height="1020" fill="url(#bg)" />
+  <g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif">
+    <text x="44" y="55" fill="#64758b" font-size="17" font-weight="600" letter-spacing="1.7">RoboHarness-Zero / EXECUTION LOOP</text>
+    <text x="44" y="110" fill="#182638" font-size="38" font-weight="600" letter-spacing="-1">Reasoning, grounded</text>
+    <text x="44" y="154" fill="#182638" font-size="38" font-weight="600" letter-spacing="-1">in feedback.</text>
+    <text x="44" y="196" fill="#718094" font-size="21">A connected loop for reasoning and action.</text>
+    <rect x="30" y="282" width="700" height="252" rx="28" fill="#edf4fc" stroke="#dfebf8" />
+    <text x="380" y="309" fill="#8292a6" font-size="17" text-anchor="middle" font-weight="600" letter-spacing="1.1">REASONING + GUIDANCE</text>
+    <rect x="54" y="224" width="280" height="46" rx="15" fill="#fff" stroke="#dce7f1" />
+    <g transform="translate(83 247) scale(0.47) translate(-183 -407)" stroke="#7089a4" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+      <rect x="163" y="385" width="39" height="45" rx="7" fill="#f3f6fa" stroke="#cad7e4" />
+      <path d="M173 399h19m-19 9h19m-19 9h11" />
+    </g>
+    <text x="111" y="254" fill="#61768e" font-size="19">Task instruction</text>
+    <path data-link="task-planner" d="M194 272V306" stroke="#4389d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+    <g data-node="llm">
+      <rect x="54" y="320" width="280" height="180" rx="24" fill="#fff" stroke="#dfe7f0" filter="url(#shadow)" />
+      <g transform="translate(194.0 369) scale(1) translate(-480 -408)" stroke="#7089a4" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M463 387h33a10 10 0 0 1 10 10v18a10 10 0 0 1-10 10h-19l-13 9v-9h-1a10 10 0 0 1-10-10v-18a10 10 0 0 1 10-10Z" fill="#f3f7fc" stroke="#b1c8e2" />
+        <path d="M465 402h27m-27 10h19" />
+      </g>
+      <text x="194.0" y="428" fill="#22364e" font-size="30" text-anchor="middle" font-weight="600">LLM planner</text>
+      <text x="194.0" y="466" fill="#78899d" font-size="20" text-anchor="middle">Plan + review</text>
+    </g>
+    <g data-node="harness">
+      <rect x="426" y="320" width="280" height="180" rx="24" fill="#fff" stroke="#bfd8f4" filter="url(#shadow)" />
+      <g transform="translate(566.0 369) scale(1) translate(-773 -411)" stroke="#7089a4" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m773 383 23 9v17c0 14-9 24-23 30-15-6-24-16-24-30v-17l24-9Z" fill="#eaf4ff" stroke="#5f9fe7" />
+        <path d="m761 408 8 8 16-17" stroke="#1774d9" stroke-width="3" />
+      </g>
+      <text x="566.0" y="428" fill="#22364e" font-size="30" text-anchor="middle" font-weight="600">Harness</text>
+      <text x="566.0" y="466" fill="#78899d" font-size="20" text-anchor="middle">Monitor + coordinate</text>
+    </g>
+    <g data-node="vla">
+      <rect x="54" y="718" width="280" height="180" rx="24" fill="#fff" stroke="#dfe7f0" filter="url(#shadow)" />
+      <g transform="translate(194.0 767) scale(1) translate(-1064 -408)" stroke="#7089a4" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1042" y="388" width="43" height="39" rx="9" fill="#f3f6fa" stroke="#bdcddd" />
+        <path d="M1052 398h23v19h-23zM1049 381v7m13-7v7m13-7v7m-26 39v7m13-7v7m13-7v7m-40-37h7m-7 13h7m43-13h7m-7 13h7" />
+      </g>
+      <text x="194.0" y="826" fill="#22364e" font-size="30" text-anchor="middle" font-weight="600">Frozen VLA</text>
+      <text x="194.0" y="864" fill="#78899d" font-size="20" text-anchor="middle">Generate actions</text>
+    </g>
+    <g data-node="executor">
+      <rect x="426" y="718" width="280" height="180" rx="24" fill="#fff" stroke="#dfe7f0" filter="url(#shadow)" />
+      <g transform="translate(566.0 767) scale(1) translate(-1390 -413)" stroke="#7089a4" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="m1390 383 26 15v30l-26 15-26-15v-30l26-15Z" fill="#f3f7fc" stroke="#b2c7dd" />
+        <path d="m1364 398 26 15 26-15m-26 15v30" />
+      </g>
+      <text x="566.0" y="826" fill="#22364e" font-size="30" text-anchor="middle" font-weight="600">Executor</text>
+      <text x="566.0" y="864" fill="#78899d" font-size="20" text-anchor="middle">Execute + observe</text>
+    </g>
+    <path data-link="planner-harness" d="M348 410H412" stroke="#4389d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+    <text x="380" y="386" fill="#527da8" font-size="13" text-anchor="middle">Decisions</text>
+    <text x="380" y="447" fill="#78899d" font-size="14" text-anchor="middle">Context</text>
+    <path data-link="harness-policy" d="M480 514V582Q480 610 452 610H222Q194 610 194 638V704" stroke="#4389d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+    <text x="345" y="588" fill="#407dbd" font-size="22" text-anchor="middle">Instruction</text>
+    <path data-link="policy-executor" d="M348 808H412" stroke="#4389d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" marker-start="url(#arrow)" />
+    <path data-link="executor-feedback" d="M650 704V514" stroke="#4389d9" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#arrow)" />
+    <rect x="587" y="568" width="126" height="36" rx="18" fill="#f5f8fc" stroke="none" />
+    <text x="650" y="593" fill="#407dbd" font-size="20" text-anchor="middle">Feedback</text>
+    <path data-link="bounded-control" d="M565 514V704" stroke="#9bb4ce" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" marker-end="url(#mutedArrow)" stroke-dasharray="6 7" />
+    <rect x="501" y="632" width="128" height="47" rx="15" fill="#f5f8fc" stroke="none" />
+    <text x="565" y="652" fill="#8a9db2" font-size="18" text-anchor="middle">Bounded</text>
+    <text x="565" y="673" fill="#8a9db2" font-size="18" text-anchor="middle">tools</text>
+    <text x="380" y="951" fill="#527da8" font-size="21" text-anchor="middle">Actions + new observations</text>
+    <text x="380" y="991" fill="#8c9bad" font-size="19" text-anchor="middle">Policy weights stay frozen.</text>
+  </g>
+</svg>

@@ -1,0 +1,583 @@
+{
+  "project": "RoboHarness-Zero",
+  "updated": "2026-11-11",
+  "claims": {
+    "profiling_hours": {
+      "value": 1,
+      "placeholder": true
+    },
+    "retraining_hours": {
+      "value": 100,
+      "placeholder": true
+    }
+  },
+  "protocol": {
+    "benchmark": "RoboCasa365",
+    "policy": "Xiaomi-Robotics-1",
+    "harness_version": "1.2.3.5",
+    "tasks": 50,
+    "scenes_per_task": 5,
+    "episodes": 250,
+    "tasks_by_category": {
+      "atomic": 18,
+      "composite_seen": 16,
+      "composite_unseen": 16
+    }
+  },
+  "paired250": {
+    "llm": "GPT-6 Sol",
+    "policy_alone": {
+      "success": 139,
+      "total": 250,
+      "percent": "55.6"
+    },
+    "with_harness": {
+      "success": 159,
+      "total": 250,
+      "percent": "63.6"
+    },
+    "delta_points": "8.0",
+    "cells": {
+      "both": 124,
+      "policy_only": 15,
+      "harness_only": 35,
+      "neither": 76
+    },
+    "kept": {
+      "success": 124,
+      "total": 139,
+      "percent": "89.2",
+      "lost": 15
+    },
+    "turned_around": {
+      "success": 35,
+      "total": 111,
+      "percent": "31.5",
+      "remaining": 76
+    },
+    "categories": [
+      {
+        "key": "atomic",
+        "label": "Single-skill tasks",
+        "total": 90,
+        "policy_alone": 72,
+        "with_harness": 72,
+        "policy_percent": "80.0",
+        "harness_percent": "80.0"
+      },
+      {
+        "key": "composite_seen",
+        "label": "Multi-step tasks, seen",
+        "total": 80,
+        "policy_alone": 43,
+        "with_harness": 53,
+        "policy_percent": "53.8",
+        "harness_percent": "66.3"
+      },
+      {
+        "key": "composite_unseen",
+        "label": "Multi-step tasks, unseen",
+        "total": 80,
+        "policy_alone": 24,
+        "with_harness": 34,
+        "policy_percent": "30.0",
+        "harness_percent": "42.5"
+      }
+    ],
+    "unseen_ratio": "1.4",
+    "no_intervention": {
+      "count": 109,
+      "total": 124,
+      "percent": "88"
+    },
+    "control_steps": {
+      "total": 76069,
+      "policy": 74515,
+      "direct_tools": 1554,
+      "policy_percent": "97.96",
+      "direct_percent": "2.04",
+      "policy_percent_short": "98",
+      "direct_percent_short": "2"
+    },
+    "both_fail": {
+      "total": 76,
+      "stall_alarm": 63,
+      "confirmed_recovery": 2
+    },
+    "llm_requests_per_episode": "80"
+  },
+  "llm_axis": {
+    "episodes": 200,
+    "sol": {
+      "success": 126,
+      "percent": "63.0",
+      "name": "GPT-6 Sol"
+    },
+    "astra": {
+      "success": 141,
+      "percent": "70.5",
+      "name": "GPT-6 Astra"
+    },
+    "astra_original_timeout": {
+      "success": 139,
+      "percent": "69.5"
+    },
+    "astra_all_five_batches": {
+      "success": 164,
+      "total": 250,
+      "percent": "65.6"
+    },
+    "rerun_episodes": 10,
+    "included_batches": 4,
+    "total_batches": 5
+  },
+  "profiling": {
+    "skills": 65,
+    "runs_per_skill": 15,
+    "episodes": 975,
+    "gradient_steps": 0
+  },
+  "policies": [
+    {
+      "name": "Xiaomi-Robotics-1",
+      "episodes": 200,
+      "policy_percent": "57.5",
+      "harness_percent": "70.5"
+    }
+  ],
+  "links": {
+    "paper": null,
+    "code": null,
+    "bibtex": null
+  },
+  "cases": [
+    {
+      "id": "A07-03",
+      "tab": "A07-03 · Open drawer",
+      "task": "A07-03 · OpenDrawer",
+      "title": "A small correction.<br> The policy does the rest.",
+      "description": "The hand misses the drawer knob. The harness recognizes the failed pull, realigns the open hand, and returns control to the same frozen policy.",
+      "comparison": "matched-policy-only",
+      "facts": [
+        {
+          "value": "442",
+          "label": "Control steps to success"
+        },
+        {
+          "value": "38",
+          "label": "Direct correction steps"
+        },
+        {
+          "value": "84",
+          "label": "Policy steps after handback"
+        }
+      ],
+      "media": {
+        "image": null,
+        "imageMobile": null,
+        "alt": null,
+        "video": null,
+        "videoMobile": null,
+        "poster": null,
+        "labels": null,
+        "stepsPerSecond": null
+      },
+      "segments": [
+        {
+          "from": 1,
+          "to": 320,
+          "by": "policy"
+        },
+        {
+          "from": 321,
+          "to": 358,
+          "by": "direct"
+        },
+        {
+          "from": 359,
+          "to": 442,
+          "by": "policy"
+        }
+      ],
+      "events": [
+        {
+          "step": 320,
+          "kind": "Failed pull recognized",
+          "title": "The knob was missed.",
+          "body": "The target drawer remains closed. Fresh views place the hand below and to the left of its knob after another unchanged policy window. The harness records a missed grasp and requests a bounded alignment correction.",
+          "quote": null
+        },
+        {
+          "step": 321,
+          "end_step": 358,
+          "kind": "Bounded direct correction",
+          "title": "Retreat. Realign. Hand back.",
+          "body": "The harness uses 38 direct control steps: an open-hand retreat through step 336, then lateral and vertical alignment through step 358. The drawer is still closed; the correction prepares the policy to engage the knob.",
+          "quote": null
+        },
+        {
+          "step": 359,
+          "kind": "Policy handback",
+          "title": "The same policy resumes.",
+          "body": "Direct correction ends at step 358. From step 359, the frozen VLA resumes with the original instruction and executes the remaining 84 control steps.",
+          "quote": "Open the left drawer."
+        },
+        {
+          "step": 442,
+          "kind": "Environment outcome",
+          "title": "The drawer opens.",
+          "body": "Substantial opening is observed at step 438. The environment confirms task success at step 442. The episode contains 404 VLA-generated steps and 38 direct correction steps.",
+          "quote": null
+        }
+      ],
+      "reference": "Selected 200-scene Astra view · Harness 1.2.3.5. The accepted policy-only run on this scene fails at the 750-step limit; the Harness run succeeds at step 442.",
+      "comparison_story": {
+        "cohort_label": "Selected 200 · GPT-6 Astra",
+        "reference_label": "Policy only",
+        "reference_subtitle": "Matched scene",
+        "reference_step": 750,
+        "reference_title": "The requested drawer never opens.",
+        "reference_body": "Repeated attempts miss the intended engagement. The policy later moves toward another drawer handle and reaches its limit without task success.",
+        "current_label": "With Harness",
+        "current_subtitle": "Harness 1.2.3.5",
+        "context_note": "One bounded alignment phase. The original instruction stays unchanged.",
+        "default_event": 1,
+        "milestones": [
+          {
+            "event_index": 0,
+            "phase": "01 · Recognize",
+            "step_label": "Step 320",
+            "title": "The pull missed.",
+            "body": "The hand is low and left of the knob. The drawer remains closed.",
+            "variant": "recognition"
+          },
+          {
+            "event_index": 1,
+            "phase": "02 · Intervene",
+            "step_label": "Steps 321–358",
+            "title": "Realign the open hand.",
+            "body": "38 direct control steps to retreat and align with the knob.",
+            "variant": "intervention"
+          },
+          {
+            "event_index": 3,
+            "phase": "03 · Succeed",
+            "step_label": "Step 442",
+            "title": "The policy opens it.",
+            "body": "Handback at step 359. Another 84 policy steps complete the task.",
+            "variant": "outcome"
+          }
+        ],
+        "extra_events": [
+          {
+            "event_index": 2,
+            "label": "Inspect policy handback · Step 359"
+          }
+        ],
+        "step_note": "38 of 442 steps are direct correction (8.6%). Milestone spacing is not elapsed time."
+      }
+    },
+    {
+      "id": "U07-historical",
+      "tab": "Historical U07 · Tool selection",
+      "task": "Historical U07 · CuttingToolSelection",
+      "title": "The right motion.<br> The wrong tool.",
+      "description": "A black-handled knife and a green Y-shaped peeler share the drawer. The task needs a tool for removing cucumber skin. The policy selects the knife; the harness identifies the mismatch and redirects execution to the peeler.",
+      "comparison": "historical-policy-only",
+      "facts": [
+        {
+          "value": "817",
+          "label": "Control steps to success"
+        },
+        {
+          "value": "157",
+          "label": "Direct correction steps"
+        },
+        {
+          "value": "180",
+          "label": "Policy steps after handback"
+        }
+      ],
+      "media": {
+        "image": null,
+        "imageMobile": null,
+        "alt": null,
+        "video": null,
+        "videoMobile": null,
+        "poster": null,
+        "labels": null,
+        "stepsPerSecond": null
+      },
+      "segments": [
+        {
+          "from": 1,
+          "to": 480,
+          "by": "policy"
+        },
+        {
+          "from": 481,
+          "to": 637,
+          "by": "direct"
+        },
+        {
+          "from": 638,
+          "to": 817,
+          "by": "policy"
+        }
+      ],
+      "events": [
+        {
+          "step": 321,
+          "kind": "Earlier instruction focus",
+          "title": "Naming the peeler was not enough.",
+          "body": "At step 321 the effective policy instruction focuses on the green-handled peeler. The policy nevertheless delivers the black-handled knife by step 480. This earlier language change alone does not resolve the target-selection error.",
+          "quote": "Place the green-handled peeler on the cutting board."
+        },
+        {
+          "step": 480,
+          "kind": "Wrong target recognized",
+          "title": "The knife is the wrong choice.",
+          "body": "The wrist view shows the black-handled knife on the board over the cucumber, while the green Y-shaped peeler remains at its source. The harness records an explicit wrong-target conflict and authorizes a bounded correction.",
+          "quote": null
+        },
+        {
+          "step": 481,
+          "end_step": 637,
+          "kind": "Bounded direct correction",
+          "title": "Redirect the approach to the peeler.",
+          "body": "The harness uses 157 direct control steps to approach the green peeler, adjust alignment and close the fingers. Retention is still unconfirmed at step 637. The policy is handed back rather than claiming that direct control has already completed the grasp.",
+          "quote": null
+        },
+        {
+          "step": 638,
+          "kind": "Policy handback",
+          "title": "Let the policy finish the correct selection.",
+          "body": "The VLA resumes from step 638 under the peeler-focused instruction. At step 679 it is reacquiring the correct peeler. Policy execution continues through the final placement and verified success.",
+          "quote": "Place the green-handled peeler on the cutting board."
+        },
+        {
+          "step": 817,
+          "kind": "Environment outcome",
+          "title": "The correct tool reaches the board.",
+          "body": "The environment confirms task success at step 817. The run contains 157 direct correction steps and 660 steps executed by policy tools, including the final 180 steps after handback.",
+          "quote": null
+        }
+      ],
+      "reference": "Historical 72-case set · Harness 1.2.3.5. The source policy-only run selects the knife first and fails at 1,200 steps. This mechanism case is separate from the selected 200-scene Astra results.",
+      "comparison_story": {
+        "cohort_label": "Historical 72 · Mechanism case",
+        "reference_label": "Policy only",
+        "reference_subtitle": "Historical source run",
+        "reference_step": 1200,
+        "reference_title": "The knife is selected first.",
+        "reference_body": "The policy delivers the knife before retrieving the peeler. The full task remains unsuccessful at the 1,200-step limit.",
+        "current_label": "With Harness",
+        "current_subtitle": "Harness 1.2.3.5",
+        "context_note": "An earlier peeler-focused instruction at step 321 did not prevent the wrong-tool selection. The motor correction follows the explicit conflict at step 480.",
+        "default_event": 2,
+        "milestones": [
+          {
+            "event_index": 1,
+            "phase": "01 · Recognize",
+            "step_label": "Step 480",
+            "title": "Knife, not peeler.",
+            "body": "The knife is on the board. The green peeler is still in the drawer.",
+            "variant": "recognition"
+          },
+          {
+            "event_index": 2,
+            "phase": "02 · Intervene",
+            "step_label": "Steps 481–637",
+            "title": "Correct the target approach.",
+            "body": "157 direct control steps redirect and align the hand toward the green peeler.",
+            "variant": "intervention"
+          },
+          {
+            "event_index": 4,
+            "phase": "03 · Succeed",
+            "step_label": "Step 817",
+            "title": "The correct tool is placed.",
+            "body": "Handback at step 638. Another 180 policy steps reach task success.",
+            "variant": "outcome"
+          }
+        ],
+        "extra_events": [
+          {
+            "event_index": 0,
+            "label": "Earlier language focus · Step 321"
+          },
+          {
+            "event_index": 3,
+            "label": "Inspect policy handback · Step 638"
+          }
+        ],
+        "step_note": "157 of 817 steps are direct correction (19.2%). Historical case; milestone spacing is not elapsed time."
+      }
+    }
+  ],
+  "case_scope": {
+    "eyebrow": "A07-03 and historical U07 · Recorded mechanism cases",
+    "title": "Recognize. Correct.<br> Hand back.",
+    "content": "<p><strong>A07-03 · OpenDrawer.</strong> The selected 200-scene GPT-6 Astra view contains this Harness 1.2.3.5 run. The accepted policy-only reference on the same scene fails at its 750-step limit. The Harness identifies a missed knob engagement at step 320, executes 38 direct correction steps and hands back at step 359. Native success occurs at step 442.</p><p class=\"dialog-paragraph\"><strong>Historical U07 · CuttingToolSelection.</strong> This is the historical 72-case run from October 24, 2026, separate from the selected 200-scene Astra view. Its source policy-only attempt fails at 1,200 steps. A peeler-focused instruction at step 321 does not stop the Harness run from choosing the knife. An explicit wrong-target conflict at step 480 is followed by 157 direct correction steps, policy handback at step 638 and native success at step 817.</p><p class=\"dialog-paragraph\">The cases show recorded failure, targeted correction and later success. The two comparisons do not establish identical action prefixes or isolate the counterfactual effect of one correction. Their direct-step shares are per-case values; the separate 2.04% pooled attribution belongs to the 250-episode Sol study.</p>"
+  },
+  "site_version": "v1",
+  "heldout200": {
+    "episodes": 200,
+    "tasks": 50,
+    "scene_batches": 4,
+    "llm": "GPT-6 Astra",
+    "policy_alone": {
+      "success": 115,
+      "total": 200,
+      "percent": "57.5"
+    },
+    "with_harness": {
+      "success": 141,
+      "total": 200,
+      "percent": "70.5"
+    },
+    "cells": {
+      "neither": 48,
+      "both": 104,
+      "policy_only": 11,
+      "harness_only": 37
+    },
+    "kept": {
+      "success": 104,
+      "total": 115,
+      "lost": 11,
+      "percent": "90.4",
+      "lost_percent": "9.6"
+    },
+    "turned_around": {
+      "success": 37,
+      "total": 85,
+      "remaining": 48,
+      "percent": "43.5",
+      "remaining_percent": "56.5"
+    },
+    "categories": [
+      {
+        "key": "atomic",
+        "label": "Single-skill tasks",
+        "total": 72,
+        "policy_alone": 59,
+        "with_harness": 62
+      },
+      {
+        "key": "composite_seen",
+        "label": "Multi-step tasks, seen",
+        "total": 64,
+        "policy_alone": 35,
+        "with_harness": 45
+      },
+      {
+        "key": "composite_unseen",
+        "label": "Multi-step tasks, unseen",
+        "total": 64,
+        "policy_alone": 21,
+        "with_harness": 34
+      }
+    ],
+    "cumulative": [
+      {
+        "key": "atomic",
+        "label": "Single-skill",
+        "category": "Single-skill tasks",
+        "added_episodes": 72,
+        "episodes": 72,
+        "policy_added": 59,
+        "harness_added": 62,
+        "policy": 59,
+        "harness": 62
+      },
+      {
+        "key": "composite_seen",
+        "label": "+ Seen multi-step",
+        "category": "Multi-step tasks, seen",
+        "added_episodes": 64,
+        "episodes": 136,
+        "policy_added": 35,
+        "harness_added": 45,
+        "policy": 94,
+        "harness": 107
+      },
+      {
+        "key": "composite_unseen",
+        "label": "+ Unseen multi-step",
+        "category": "Multi-step tasks, unseen",
+        "added_episodes": 64,
+        "episodes": 200,
+        "policy_added": 21,
+        "harness_added": 34,
+        "policy": 115,
+        "harness": 141
+      }
+    ],
+    "additional_successes": 26,
+    "planning_timeout_overrides": 10,
+    "planning_timeout_seconds": 600,
+    "scope": "Selected supplemental native outcomes, matched by scene to the accepted policy-only reference. Includes disclosed planning-timeout overrides.",
+    "relative_success_rate_gain_percent": "22.6",
+    "unseen_lift": {
+      "episodes": 64,
+      "policy_success": 21,
+      "harness_success": 34,
+      "policy_percent": "32.8",
+      "harness_percent": "53.1",
+      "relative_percent": "61.9"
+    }
+  },
+  "timing_comparison": {
+    "reference": {
+      "method": "HexaShell",
+      "benchmark": "RoboCasa365",
+      "model": "GPT-6 Astra",
+      "reasoning_effort": "xhigh",
+      "task_skills": true,
+      "scope": "Published full-episode runtime",
+      "mean_episode_seconds": 543,
+      "mean_episode_minutes": "9.05",
+      "source_url": "https://hexafuture.ai/blog/hexashell-universal/assets/HexaShell-Universal-20261104.pdf#page=45"
+    },
+    "estimate": {
+      "method": "RoboHarness-Zero",
+      "model": "GPT-6 Astra",
+      "scope": "Hypothetical LLM-request time only",
+      "episodes": 200,
+      "requests": 14196,
+      "request_speedup": 8,
+      "observed_llm_hours": 70.43269827258308,
+      "observed_llm_hours_display": "70.43",
+      "estimated_llm_hours": 8.804087284072885,
+      "estimated_llm_hours_display": "8.80",
+      "mean_llm_minutes": "2.64",
+      "reference_bar_percent": 29.184819726208456,
+      "verified_service_tier": null,
+      "categories": [
+        {
+          "label": "Single-skill",
+          "episodes": 72,
+          "mean_llm_minutes": 0.7512185800418525,
+          "display_value": "45",
+          "display_unit": "s"
+        },
+        {
+          "label": "Multi-step, seen",
+          "episodes": 64,
+          "mean_llm_minutes": 2.863893509999798,
+          "display_value": "2.86",
+          "display_unit": "min"
+        },
+        {
+          "label": "Multi-step, unseen",
+          "episodes": 64,
+          "mean_llm_minutes": 4.544817416271447,
+          "display_value": "4.54",
+          "display_unit": "min"
+        }
+      ]
+    },
+    "qualification": "Different timing scopes and evaluation protocols. This is not a measured speedup or an Ultrafast benchmark. All recorded request durations, including failed and cancelled requests, are divided by eight with the sequence fixed. VLA, robot execution, initialization and teardown are excluded from the estimate."
+  }
+}

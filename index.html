@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <meta name="description" content="RoboHarness-Zero is a fixed language-model harness for frozen robot policies. The policy moves; the language model decides when to step in.">
+  <meta name="robots" content="noindex">
+  <meta name="application-version" content="v1">
+  <title>RoboHarness-Zero — One harness. Any policy.</title>
+  <link rel="icon" href="assets/favicon.svg?v=roboharness-zero-1" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=roboharness-zero-1">
+  <script src="app.js?v=roboharness-zero-1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header" id="site-header">
+    <nav class="nav-shell" aria-label="Main navigation">
+      <a class="wordmark" href="#top" aria-label="RoboHarness-Zero home"><span class="wordmark-rest">RoboHarness-Zero<span class="wordmark-dot">.</span></span></a>
+      <div class="nav-right">
+        <button class="mobile-menu-toggle" type="button" aria-expanded="false" aria-controls="navigation-links">Menu <span class="chevron" aria-hidden="true"></span></button>
+        <div class="nav-links" id="navigation-links"><a href="#results">Results</a><a href="#overview">Overview</a><a href="#cases">Case studies</a><a href="#system">How it works</a><a href="#faq">FAQ</a></div>
+        <a class="button button-small button-blue" href="#cases">Explore</a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="hero hero-evidence" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="hero-product">RoboHarness-Zero</p>
+        <h1 id="hero-title">One harness.<br> Any policy.</h1>
+        <p class="hero-description"><span>1 hour of profiling.</span> <span>Not 100 hours of retraining.</span></p>
+      </div>
+      <div class="hero-media" data-slot="hero-media">
+        <video id="hero-video" src="assets/hero-coffee-240.mp4" poster="assets/hero-coffee-poster.jpg"
+          preload="metadata" muted playsinline controls
+          aria-label="Concept animation: a silver robot lifts a coffee cup from a small table, takes a sip, and sets it back down."></video>
+        <template id="hero-options">
+          <video data-hero="mix" src="assets/hero-coffee-mix.mp4" poster="assets/hero-coffee-mix-poster.jpg"
+            aria-label="Concept animation: a robot pours milk from a pitcher into a coffee cup, stirs twice with a spoon, and lifts the cup."></video>
+          <video data-hero="drawer" src="assets/hero-drawer.mp4" poster="assets/hero-drawer-poster.jpg"
+            aria-label="Concept animation: a robot reaches below a drawer knob, adjusts its grip, and opens the drawer."></video>
+          <video data-hero="arm-fit" src="assets/hero-arm-fit.mp4" poster="assets/hero-arm-fit-poster.jpg"
+            aria-label="Concept animation: a robot arm rotates a blue part to match a recess and seats it in place."></video>
+          <video data-hero="arm-tool" src="assets/hero-arm-tool.mp4" poster="assets/hero-arm-tool-poster.jpg"
+            aria-label="Concept animation: a robot arm uses a scraper to sweep teal parts into an open tray."></video>
+          <video data-hero="arm-pass" src="assets/hero-arm-pass.mp4" poster="assets/hero-arm-pass-poster.jpg"
+            aria-label="Concept animation: two robot arms hand off a teal workpiece and place it in a cradle."></video>
+        </template>
+        <button class="hero-playback" type="button" aria-controls="hero-video" aria-label="Play animation" data-state="play" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true" fill="currentColor">
+            <path class="play-icon" d="M8 5.5v13l11-6.5z"/>
+            <path class="pause-icon" d="M6.5 5.5h4v13h-4zm7 0h4v13h-4z"/>
+            <path class="replay-icon" d="M5.1 9a7.4 7.4 0 1 1-.3 5.2M5 4.7v4.8h4.8" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="hero-footnote"><div><strong>See the harness in action.</strong><span>Twelve tasks. Everyday possibilities.</span></div><a class="button button-blue" href="#showcase">Watch it in action <span aria-hidden="true">↓</span></a></div>
+    </section>
+
+    <section class="showcase-section section-white" id="showcase" aria-labelledby="showcase-title">
+      <div class="showcase-heading" data-reveal>
+        <p class="eyebrow">Recorded in simulation</p>
+        <h2 id="showcase-title">See it in action.</h2>
+        <p>One harness. Across everyday tasks.</p>
+      </div>
+      <figure class="showcase-figure">
+        <video id="showcase-video" src="assets/showcase-twelve-41s-1440p.mp4" poster="assets/showcase-twelve-poster.jpg"
+          width="2560" height="1440" controls muted playsinline preload="metadata" tabindex="0"
+          aria-label="A 41-second overview of twelve recorded robot tasks in simulation, opening with a bread-basket delivery and expanding to a twelve-view montage. Click or press Space to pause or resume."
+          aria-describedby="showcase-caption">
+          <p>Your browser does not support embedded video.</p>
+        </video>
+        <figcaption id="showcase-caption">
+          <div><strong>12 recorded tasks. 41 seconds.</strong><span>Simulator executions, edited into one overview.</span></div>
+          <a class="text-link" href="#cases">Explore the case studies <span aria-hidden="true">↗</span></a>
+        </figcaption>
+      </figure>
+    </section>
+
+    <section class="results-section section-gray" id="results" aria-labelledby="results-title">
+      <div class="centered-copy" data-reveal><p class="eyebrow">Held-out evaluation</p><h2 class="display-heading" id="results-title"><span class="headline-rate"><span data-bind="heldout200.policy_alone.percent">57.5</span><span>%</span></span> → <span class="headline-rate"><span data-bind="heldout200.with_harness.percent">70.5</span><span>%</span></span>.</h2><p class="section-description">Same frozen policy. <span data-bind="heldout200.episodes">200</span> matched held-out scenes.<br> Policy alone vs. the harness with <span data-bind="heldout200.llm">GPT-6 Astra</span>.</p></div>
+      <div class="result-metrics wide" data-reveal><div><p class="metric-number"><b data-bind="heldout200.with_harness.percent">70.5</b><span>%</span></p><h3>Episodes completed.</h3><p>With <span data-bind="heldout200.llm">GPT-6 Astra</span>, compared with <span data-bind="heldout200.policy_alone.percent" data-suffix="%">57.5%</span> for the matched policy-only reference.</p></div><div><p class="metric-number"><b data-bind="heldout200.kept.percent">90.4</b><span>%</span></p><h3>Policy successes kept.</h3><p><span data-bind="heldout200.kept.lost_percent" data-suffix="%">9.6%</span> of policy successes became unsuccessful.</p></div><div><p class="metric-number"><b data-bind="heldout200.turned_around.percent">43.5</b><span>%</span></p><h3>Policy failures turned around.</h3><p><span data-bind="heldout200.turned_around.remaining_percent" data-suffix="%">56.5%</span> of policy failures remained unsuccessful.</p></div></div>
+      <div class="study-caption wide"><p>Harness <span data-bind="protocol.harness_version">1.2.3.5</span> · <span data-bind="protocol.policy">Xiaomi-Robotics-1</span> · <span data-bind="heldout200.llm">GPT-6 Astra</span> · <span data-bind="protocol.benchmark">RoboCasa365</span> · <span data-bind="heldout200.episodes">200</span> matched scenes.</p><button class="text-link" type="button" data-open="selected-protocol">Read the protocol <span aria-hidden="true">↗</span></button></div>
+      <p class="headline-qualification wide">Selected supplemental native outcomes. <span data-bind="heldout200.planning_timeout_overrides">10</span> scenes use a <span data-bind="heldout200.planning_timeout_seconds">600</span>-second planning timeout; this is a mixed-timeout reporting view.</p>
+      <div class="evidence-story wide" id="critical-impact" aria-labelledby="evidence-title" data-reveal>
+        <div class="evidence-heading"><p class="eyebrow">The impact of knowing when to step in.</p><h3 id="evidence-title">Small interventions. Measurable gains.</h3></div>
+        <div class="evidence-summary">
+          <div class="evidence-control">
+            <p class="evidence-number intervention-number"><b data-bind="paired250.control_steps.direct_percent_short">2</b><span>%</span></p>
+            <h4>Critical steps.<br><span>Recognize. Intervene.</span></h4>
+            <p class="evidence-definition">Direct motor-tool steps, with high-level recognition and redirection guiding when to act.</p>
+            <p class="evidence-policy"><strong><span data-bind="paired250.control_steps.policy_percent_short">98</span><span class="policy-unit">%</span></strong><span>Policy execution.</span></p>
+            <div class="action-bar evidence-action-bar" role="img" aria-label="97.96 percent policy-generated control steps; 2.04 percent targeted direct-tool steps" data-bind-label="{paired250.control_steps.policy_percent} percent policy-generated control steps; {paired250.control_steps.direct_percent} percent targeted direct-tool steps"><span class="vla-share" data-bind-width="paired250.control_steps.policy_percent" style="width:97.96%"></span><span class="motor-share" data-bind-width="paired250.control_steps.direct_percent" style="width:2.04%"></span></div><div class="bar-legend"><span><i class="legend-vla"></i>Policy · <span data-bind="paired250.control_steps.policy_percent" data-suffix="%">97.96%</span></span><span><i class="legend-motor"></i>Direct tools · <span data-bind="paired250.control_steps.direct_percent" data-suffix="%">2.04%</span></span></div>
+          </div>
+          <div class="evidence-gain">
+            <p class="evidence-number gain-number"><span class="gain-sign">+</span><b data-bind="heldout200.unseen_lift.relative_percent">61.9</b><span>%</span></p>
+            <h4>Relative lift.<br><span>On unseen multi-step tasks.</span></h4>
+            <p class="evidence-definition">Compare the frozen policy with and without the harness across the three task groups below.</p>
+            <a class="text-link evidence-case-link" href="#cases">See the critical moments <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <p class="evidence-cohorts">Two complementary studies: control-step share from the <span data-bind="protocol.episodes">250</span>-episode Sol study; success-rate gains from the selected <span data-bind="heldout200.episodes">200</span>-scene Astra evaluation.</p>
+        <div class="task-rate-comparison evidence-chart" id="task-results">
+        <figure class="task-rate-figure" aria-labelledby="task-rate-heading">
+          <div class="chart-heading"><p class="eyebrow" id="task-rate-heading">Where the harness helps.</p><p>Success rate by task group</p></div>
+          <div class="chart-legend"><span><i class="bar-key policy-key"></i>Without Harness</span><span><i class="bar-key harness-key"></i>With Harness · Astra</span></div>
+          <div class="task-rate-chart" id="task-rate-chart" data-axis-min="25" data-axis-max="100" role="img" aria-label="Success rate by task group on a shared linear scale from 25 to 100 percent. Single-skill tasks: without Harness 81.9%, with Harness 86.1%, on 72 matched scenes. Multi-step tasks, seen: without Harness 54.7%, with Harness 70.3%, on 64 matched scenes. Multi-step tasks, unseen: without Harness 32.8%, with Harness 53.1%, on 64 matched scenes.">
+            <div class="task-rate-scale" aria-hidden="true"><span style="top:0%">100%</span><span style="top:33.3333333333%">75%</span><span style="top:66.6666666667%">50%</span><span style="top:100%">25%</span></div>
+            <div class="task-rate-plot" aria-hidden="true">
+              <div class="task-rate-grid"><i></i><i></i><i></i><i></i></div>
+              <div class="task-rate-groups">
+              <div class="task-rate-group" data-task-category="atomic">
+                <div class="task-rate-bars">
+                  <div class="task-rate-bar policy-bar" style="--bar-height:75.9259259259%"><span class="task-rate-value"><b class="task-rate-number">81.9</b><span>%</span></span></div>
+                  <div class="task-rate-bar harness-bar" style="--bar-height:81.4814814815%"><span class="task-rate-value"><b class="task-rate-number">86.1</b><span>%</span></span></div>
+                </div>
+                <div class="task-rate-label"><strong>Single-skill<br>tasks</strong><span class="task-scene-count">72 scenes</span></div>
+              </div>
+              <div class="task-rate-group" data-task-category="composite_seen">
+                <div class="task-rate-bars">
+                  <div class="task-rate-bar policy-bar" style="--bar-height:39.5833333333%"><span class="task-rate-value"><b class="task-rate-number">54.7</b><span>%</span></span></div>
+                  <div class="task-rate-bar harness-bar" style="--bar-height:60.4166666667%"><span class="task-rate-value"><b class="task-rate-number">70.3</b><span>%</span></span></div>
+                </div>
+                <div class="task-rate-label"><strong>Multi-step<br>seen</strong><span class="task-scene-count">64 scenes</span></div>
+              </div>
+              <div class="task-rate-group" data-task-category="composite_unseen">
+                <div class="task-rate-bars">
+                  <div class="task-rate-bar policy-bar" style="--bar-height:10.4166666667%"><span class="task-rate-value"><b class="task-rate-number">32.8</b><span>%</span></span></div>
+                  <div class="task-rate-bar harness-bar" style="--bar-height:37.5000000000%"><span class="task-rate-value"><b class="task-rate-number">53.1</b><span>%</span></span></div>
+                </div>
+                <div class="task-rate-label"><strong>Multi-step<br>unseen</strong><span class="task-scene-count">64 scenes</span></div>
+              </div>
+              </div>
+            </div>
+          </div>
+          <figcaption class="task-rate-caption">Each rate uses the matched scenes in its own task group. <span>Vertical axis: 25–100%.</span></figcaption>
+          <div class="sr-only"><table><caption>Success counts by task group on the selected 200 matched scenes. Divide each count by the scenes in that row to obtain the charted success rate.</caption><thead><tr><th scope="col">Task group</th><th scope="col">Scenes</th><th scope="col">Without Harness</th><th scope="col">With Harness</th></tr></thead><tbody>
+              <tr><th scope="row"><span data-bind="heldout200.categories.0.label">Single-skill tasks</span></th><td><span data-bind="heldout200.categories.0.total">72</span></td><td><span data-bind="heldout200.categories.0.policy_alone">59</span></td><td><span data-bind="heldout200.categories.0.with_harness">62</span></td></tr>
+              <tr><th scope="row"><span data-bind="heldout200.categories.1.label">Multi-step tasks, seen</span></th><td><span data-bind="heldout200.categories.1.total">64</span></td><td><span data-bind="heldout200.categories.1.policy_alone">35</span></td><td><span data-bind="heldout200.categories.1.with_harness">45</span></td></tr>
+              <tr><th scope="row"><span data-bind="heldout200.categories.2.label">Multi-step tasks, unseen</span></th><td><span data-bind="heldout200.categories.2.total">64</span></td><td><span data-bind="heldout200.categories.2.policy_alone">21</span></td><td><span data-bind="heldout200.categories.2.with_harness">34</span></td></tr>
+          </tbody></table></div>
+        </figure>
+
+      </div>
+        <details class="evidence-method">
+          <summary>What counts as an intervention?<span aria-hidden="true">+</span></summary>
+          <div>
+            <ol class="critical-decision-flow"><li><strong>Recognize</strong><span>Detect a stalled goal.</span></li><li><strong>Redirect</strong><span>Clarify the instruction.</span></li><li><strong>Intervene</strong><span>Use bounded motor tools.</span></li><li><strong>Hand back</strong><span>Resume policy execution.</span></li></ol>
+            <p class="control-scope">Control-step attribution comes from the separate <span data-bind="protocol.episodes">250</span>-episode <span data-bind="paired250.llm">GPT-6 Sol</span> study: <span data-bind="paired250.control_steps.policy" data-format="integer">74,515</span> policy steps and <span data-bind="paired250.control_steps.direct_tools" data-format="integer">1,554</span> direct-tool steps out of <span data-bind="paired250.control_steps.total" data-format="integer">76,069</span>. <button class="text-link" type="button" data-open="protocol">Read that protocol <span aria-hidden="true">↗</span></button></p><p class="control-scope">Recognizing a stall and changing an instruction are high-level decisions. The <span data-bind="paired250.control_steps.direct_percent" data-suffix="%">2.04%</span> share counts direct motor-tool steps.</p>
+          </div>
+        </details>
+      </div>
+      <section class="timing-card wide" id="runtime" aria-labelledby="timing-title" data-reveal>
+        <div class="timing-heading">
+          <p class="eyebrow">Time, in perspective.</p>
+          <h3 id="timing-title">A closer look at runtime.</h3>
+        </div>
+        <div class="timing-columns">
+          <div class="timing-overall">
+            <h4>Average per episode</h4>
+            <div class="timing-reference">
+              <div class="timing-row-heading"><p>HexaShell</p><span>Published · full episode</span></div>
+              <p class="timing-value"><b data-bind="timing_comparison.reference.mean_episode_minutes">9.05</b><span>min</span></p>
+              <div class="timing-track" aria-hidden="true"><span class="timing-bar-reference"></span></div>
+            </div>
+            <div class="timing-estimate">
+              <div class="timing-row-heading"><p>RoboHarness-Zero</p><span>Estimated</span></div>
+              <p class="timing-value"><b data-bind="timing_comparison.estimate.mean_llm_minutes">2.64</b><span>min</span></p>
+              <div class="timing-track" aria-hidden="true"><span class="timing-bar-estimate" data-bind-width="timing_comparison.estimate.reference_bar_percent" style="width:29.1848197262%"></span></div>
+            </div>
+          </div>
+          <div class="timing-task-groups">
+            <h4>Our LLM time, by task</h4>
+            <p class="timing-task-caption">Average per episode</p>
+            <dl class="timing-task-list">
+              <div><dt>Single-skill</dt><dd><b data-bind="timing_comparison.estimate.categories.0.display_value">45</b><span>s</span></dd></div>
+              <div><dt>Multi-step<span>Seen</span></dt><dd><b data-bind="timing_comparison.estimate.categories.1.display_value">2.86</b><span>min</span></dd></div>
+              <div><dt>Multi-step<span>Unseen</span></dt><dd><b data-bind="timing_comparison.estimate.categories.2.display_value">4.54</b><span>min</span></dd></div>
+            </dl>
+          </div>
+        </div>
+        <div class="timing-footer">
+        <details class="timing-method">
+          <summary>How the estimate is calculated<span aria-hidden="true">+</span></summary>
+          <div>
+            <p>The selected <span data-bind="timing_comparison.estimate.episodes">200</span> Astra episodes contain <span data-bind="timing_comparison.estimate.requests" data-format="integer">14,196</span> observable HTTP requests. Their measured request time totals <span data-bind="timing_comparison.estimate.observed_llm_hours_display">70.43</span> hours, including failed and cancelled requests. Dividing every request duration by <span data-bind="timing_comparison.estimate.request_speedup">8</span> gives <span data-bind="timing_comparison.estimate.estimated_llm_hours_display">8.80</span> hours, or <span data-bind="timing_comparison.estimate.mean_llm_minutes">2.64</span> minutes per episode. Task-group means use each group's own episodes.</p>
+            <p>The request and action sequence stays fixed for this calculation. VLA, robot execution, initialization and teardown are excluded. Request time includes network and service waiting; it is not isolated model thinking time. The actual service tier is unverified, and these figures are not an Ultrafast benchmark. HEXA's <span data-bind="timing_comparison.reference.mean_episode_minutes">9.05</span>-minute mean is for RoboCasa365 with task skills and GPT-6 Astra at xhigh, under a different evaluation protocol.</p>
+          </div>
+        </details>
+          <a class="text-link" href="https://hexafuture.ai/blog/hexashell-universal/assets/HexaShell-Universal-20261104.pdf#page=45" target="_blank" rel="noopener">HEXA source <span aria-hidden="true">↗</span></a>
+        </div>
+      </section>
+      <div class="llm-axis wide" data-reveal>
+        <p class="eyebrow">A stronger language model</p><h3>Same harness. <span data-bind="llm_axis.sol.percent" data-suffix="%">63.0%</span> → <span data-bind="llm_axis.astra.percent" data-suffix="%">70.5%</span>.</h3>
+        <p class="axis-description">On the same <span data-bind="llm_axis.episodes">200</span> scenes, <span data-bind="llm_axis.sol.name">GPT-6 Sol</span> completes <span data-bind="llm_axis.sol.success">126</span> and the selected <span data-bind="llm_axis.astra.name">GPT-6 Astra</span> view completes <span data-bind="llm_axis.astra.success">141</span>. The Astra selection includes <span data-bind="heldout200.planning_timeout_overrides">10</span> longer-planning-timeout results.</p>
+        <div class="axis-bars"><div class="paired-bar"><div class="paired-bar-label"><span><span data-bind="llm_axis.sol.name">GPT-6 Sol</span></span><strong><span data-bind="llm_axis.sol.percent" data-suffix="%">63.0%</span></strong></div><div class="bar-track" aria-hidden="true"><span class="bar-fill policy-fill" data-bind-width="llm_axis.sol.percent" style="width:63.0%"></span></div></div><div class="paired-bar"><div class="paired-bar-label"><span><span data-bind="llm_axis.astra.name">GPT-6 Astra</span></span><strong><span data-bind="llm_axis.astra.percent" data-suffix="%">70.5%</span></strong></div><div class="bar-track" aria-hidden="true"><span class="bar-fill harness-fill" data-bind-width="llm_axis.astra.percent" style="width:70.5%"></span></div></div></div>
+        <p class="axis-footnote"><span data-bind="llm_axis.sol.success">126</span>/<span data-bind="llm_axis.episodes">200</span> with <span data-bind="llm_axis.sol.name">GPT-6 Sol</span> and <span data-bind="llm_axis.astra.success">141</span>/<span data-bind="llm_axis.episodes">200</span> with <span data-bind="llm_axis.astra.name">GPT-6 Astra</span> on the same <span data-bind="llm_axis.episodes">200</span> episodes, four of the five scene batches. The Astra count includes <span data-bind="llm_axis.rerun_episodes">10</span> episodes re-run with a longer planning timeout; with the original timeout it is <span data-bind="llm_axis.astra_original_timeout.success">139</span>/<span data-bind="llm_axis.episodes">200</span> (<span data-bind="llm_axis.astra_original_timeout.percent" data-suffix="%">69.5%</span>). One scene batch is excluded from this selected view. The separate original five-batch native view completes <span data-bind="llm_axis.astra_all_five_batches.success">164</span>/<span data-bind="llm_axis.astra_all_five_batches.total">250</span> (<span data-bind="llm_axis.astra_all_five_batches.percent" data-suffix="%">65.6%</span>).</p>
+      </div>
+      <div class="policy-axis wide" data-pending-block="policies"><p class="eyebrow">Other policies</p><h3>One harness. Every policy.</h3><div id="policy-rows"></div></div>
+    </section>
+
+    <section class="introduction section-gray" id="overview">
+      <div class="intro-copy" data-reveal><p class="eyebrow">An execution layer for physical intelligence.</p><p class="intro-statement">A robot policy brings the ability to act.<br> <span>RoboHarness-Zero brings a way to guide it.</span></p><p class="intro-description">The policy does the moving. A language model holds the plan, watches for stalled progress, and steps in only then: first with a clearer instruction, and only if that fails with a short, bounded takeover. The policy's weights never change, and a new policy needs only a thin adapter and one profiling run.</p></div>
+    </section>
+
+
+
+    <section class="case-section section-white" id="cases" aria-labelledby="cases-title">
+      <div class="centered-copy" data-reveal><p class="eyebrow">Recorded case studies</p><h2 class="display-heading" id="cases-title">A small change.<br> A different trajectory.</h2><p class="section-description">See what failed, where the harness stepped in,<br class="desktop-break"> and how the policy finished the task.</p></div>
+      <div class="case-video-section wide" id="key-moment" data-reveal>
+        <div class="case-video-heading"><p class="eyebrow">U13-02 · A correction before the grasp</p><h3>Shrimp first.<br>Vegetables later.</h3><p>The open fingers approach the vegetable tray. The harness recognizes the wrong current target, redirects the hand, and returns control to the policy. Watch the robot lift the shrimp tray.</p></div>
+        <figure class="case-video-figure">
+          <video id="key-moment-video" controls muted playsinline preload="metadata" tabindex="0" width="2560" height="1440" poster="assets/u13-02-single-bubbles-hq-poster.jpg" aria-label="U13-02: recognize the wrong current target, locate the shrimp tray, intervene, and return control to the policy. Click or press Space to pause or resume." aria-describedby="key-moment-caption">
+            <source src="assets/u13-02-single-bubbles-hq-120.mp4" type="video/mp4">
+            <p><a href="assets/u13-02-single-bubbles-hq-120.mp4">Watch the single-view demonstration.</a></p>
+          </video>
+          <div class="case-video-chapters" role="group" aria-label="Jump to a demonstration moment">
+            <button type="button" data-video-time="3.10">01 · Recognize</button>
+            <button type="button" data-video-time="7.10">02 · Locate</button>
+            <button type="button" data-video-time="11.10">03 · Intervene</button>
+            <button type="button" data-video-time="16.24">04 · Hand back</button>
+            <button type="button" data-video-time="26.34">05 · Correct tray held</button>
+          </div>
+          <figcaption id="key-moment-caption"><p>Demonstration re-recording · 120 fps. The shrimp is repositioned inside the tray, and the original action sequence is replayed in the simulator. A twelve-second editorial pause presents recognition, target localization, and the correction instruction as staged speech bubbles based on recorded public judgments, with four seconds for each stage.</p><p>The demonstration ends with the correct tray held; it is a local acquisition example, not a full-task success result. The camera switches from the worktop to the freezer as the robot moves.</p></figcaption>
+        </figure>
+      </div>
+      <div class="case-selector" aria-label="Choose a recorded case" data-reveal><button type="button" class="selected" data-case="A07-03" aria-pressed="true">A07-03 · Open drawer</button><button type="button" data-case="U07-historical" aria-pressed="false">Historical U07 · Tool selection</button></div>
+      <div class="case-study wide" id="case-showcase" data-reveal data-slot="case-media">
+        <div class="case-summary"><div><p class="case-task" id="case-task">A07-03 · OpenDrawer</p><h3 id="case-heading">A small correction.<br> The policy does the rest.</h3><p id="case-description">The hand misses the drawer knob. The harness recognizes the failed pull, realigns the open hand, and returns control to the same frozen policy.</p></div><div class="case-facts"><span><strong id="case-steps">442</strong><span>Control steps to success</span></span><span><strong>38</strong><span>Direct correction steps</span></span><span><strong>84</strong><span>Policy steps after handback</span></span></div></div>
+        <div class="case-comparison" id="event-tabs" aria-label="Failure, intervention and successful recovery">
+          <div class="comparison-heading"><span>Failure → Intervention → Success</span><span>Selected 200 · GPT-6 Astra</span></div><p class="comparison-context">One bounded alignment phase. The original instruction stays unchanged.</p><div class="comparison-lanes" style="--case-stages: 3"><div class="comparison-lane reference-lane"><div class="lane-label"><strong>Policy only</strong><span>Matched scene</span></div><div class="lane-track"><div class="reference-context"><span class="lane-state">Original failure</span><h4>The requested drawer never opens.</h4><p>Repeated attempts miss the intended engagement. The policy later moves toward another drawer handle and reaches its limit without task success.</p></div><div class="reference-outcome"><span class="event-step">Step 750</span><span class="outcome-symbol" aria-hidden="true">−</span><strong>Not completed</strong><p>No task success recorded.</p></div></div></div><div class="comparison-lane revised-lane"><div class="lane-label"><strong>With Harness</strong><span>Harness 1.2.3.5</span></div><div class="lane-track"><button class="case-event-card recognition-event" type="button" data-event-index="0" aria-pressed="false"><span class="event-step">Step 320</span><span class="event-card-kind">01 · Recognize</span><strong>The pull missed.</strong><span class="event-card-body">The hand is low and left of the knob. The drawer remains closed.</span><span class="event-open" aria-hidden="true">+</span></button><button class="case-event-card intervention-event selected" type="button" data-event-index="1" aria-pressed="true"><span class="event-step">Steps 321–358</span><span class="event-card-kind">02 · Intervene</span><strong>Realign the open hand.</strong><span class="event-card-body">38 direct control steps to retreat and align with the knob.</span><span class="event-open" aria-hidden="true">+</span></button><button class="case-event-card outcome-event" type="button" data-event-index="3" aria-pressed="false"><span class="event-step">Step 442</span><span class="event-card-kind">03 · Succeed</span><strong>The policy opens it.</strong><span class="event-card-body">Handback at step 359. Another 84 policy steps complete the task.</span><span class="event-open" aria-hidden="true">✓</span></button></div></div></div><div class="case-extra-events" aria-label="Additional recorded events"><button class="case-extra-event" type="button" data-event-index="2" aria-pressed="false">Inspect policy handback · Step 359 <span aria-hidden="true">+</span></button></div><p class="comparison-scale">38 of 442 steps are direct correction (8.6%). Milestone spacing is not elapsed time.</p>
+        </div>
+        <div class="event-explorer"><div class="event-toolbar"><span>Selected recorded event</span><span class="step-unit">Select a milestone above</span></div><div class="event-detail" aria-live="polite"><div><p class="event-kicker" id="event-kicker">Bounded direct correction · Steps 321–358</p><h4 id="event-title">Retreat. Realign. Hand back.</h4><p class="event-body" id="event-body">The harness uses 38 direct control steps: an open-hand retreat through step 336, then lateral and vertical alignment through step 358. The drawer is still closed; the correction prepares the policy to engage the knob.</p></div><blockquote id="event-quote" hidden></blockquote></div></div>
+        <div class="case-footer"><p id="case-reference">Selected 200-scene Astra view · Harness 1.2.3.5. The accepted policy-only run on this scene fails at the 750-step limit; the Harness run succeeds at step 442.</p><button class="text-link" type="button" data-open="case-scope">About these cases <span aria-hidden="true">↗</span></button></div>
+      </div>
+
+    </section>
+
+    <section class="system-section section-gray" id="system" aria-labelledby="system-title">
+      <div class="centered-copy" data-reveal><p class="eyebrow">How it works</p><h2 class="display-heading" id="system-title">One loop.<br> Clear responsibilities.</h2><p class="section-description">Reason about the task. Execute through the policy.<br class="desktop-break"> Check the outcome. Keep the policy weights fixed.</p></div>
+      <figure class="system-figure loop-figure wide" id="execution-loop" data-reveal data-slot="system-overview">
+        <div class="system-diagram">
+          <picture>
+            <source media="(max-width: 800px)" srcset="assets/architecture-mobile.svg?v=roboharness-zero-1" width="760" height="1020">
+            <img src="assets/architecture.svg?v=roboharness-zero-1" width="1600" height="900" alt="A connected execution loop: the LLM exchanges decisions and context with the Harness; instructions go to the frozen VLA, actions and observations pass between the VLA and executor on one connector, and feedback returns to the Harness. Bounded direct tools form a separate optional path." loading="lazy">
+          </picture>
+          <svg class="architecture-traces architecture-traces-desktop" viewBox="0 0 1600 900" fill="none" aria-hidden="true" focusable="false">
+            <defs><mask id="desktop-trace-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1600" height="900"><rect width="1600" height="900" fill="white"/><rect x="782" y="805" width="384" height="40" rx="20" fill="black"/></mask></defs>
+            <path mask="url(#desktop-trace-mask)" class="architecture-route" data-trace="task-planner" d="M250 294V376"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-signal" data-trace="task-planner" d="M250 294V376" pathLength="100"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-route" data-trace="planner-harness" d="M404 490H491"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-signal" data-trace="planner-harness" d="M404 490H491" pathLength="100"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-route" data-trace="harness-policy" d="M804 440H868Q900 440 900 408V380Q900 358 922 358H1046"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-signal" data-trace="harness-policy" d="M804 440H868Q900 440 900 408V380Q900 358 922 358H1046" pathLength="100"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-route" data-trace="policy-executor" d="M1255 479V586"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-signal" data-trace="policy-executor" d="M1255 479V586" pathLength="100"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-route" data-trace="executor-feedback" d="M1046 685H944Q900 685 900 641V574Q900 548 874 548H804"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-signal" data-trace="executor-feedback" d="M1046 685H944Q900 685 900 641V574Q900 548 874 548H804" pathLength="100"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-route" data-trace="bounded-control" d="M648 609V802Q648 826 672 826H1231Q1255 826 1255 802V799"/>
+            <path mask="url(#desktop-trace-mask)" class="architecture-signal" data-trace="bounded-control" d="M648 609V802Q648 826 672 826H1231Q1255 826 1255 802V799" pathLength="100"/>
+          </svg>
+          <svg class="architecture-traces architecture-traces-mobile" viewBox="0 0 760 1020" fill="none" aria-hidden="true" focusable="false">
+            <defs><mask id="mobile-trace-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="760" height="1020"><rect width="760" height="1020" fill="white"/><rect x="587" y="568" width="126" height="36" rx="18" fill="black"/><rect x="501" y="632" width="128" height="47" rx="15" fill="black"/></mask></defs>
+            <path mask="url(#mobile-trace-mask)" class="architecture-route" data-trace="task-planner" d="M194 272V306"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-signal" data-trace="task-planner" d="M194 272V306" pathLength="100"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-route" data-trace="planner-harness" d="M348 410H412"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-signal" data-trace="planner-harness" d="M348 410H412" pathLength="100"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-route" data-trace="harness-policy" d="M480 514V582Q480 610 452 610H222Q194 610 194 638V704"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-signal" data-trace="harness-policy" d="M480 514V582Q480 610 452 610H222Q194 610 194 638V704" pathLength="100"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-route" data-trace="policy-executor" d="M348 808H412"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-signal" data-trace="policy-executor" d="M348 808H412" pathLength="100"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-route" data-trace="executor-feedback" d="M650 704V514"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-signal" data-trace="executor-feedback" d="M650 704V514" pathLength="100"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-route" data-trace="bounded-control" d="M565 514V704"/>
+            <path mask="url(#mobile-trace-mask)" class="architecture-signal" data-trace="bounded-control" d="M565 514V704" pathLength="100"/>
+          </svg>
+          <div class="architecture-controls" role="group" aria-label="Explore architecture modules">
+            <button class="architecture-hotspot architecture-llm" type="button" data-architecture-node="llm" aria-label="LLM planner" aria-pressed="false" aria-describedby="architecture-detail-body"><span aria-hidden="true">+</span></button>
+            <button class="architecture-hotspot architecture-harness" type="button" data-architecture-node="harness" aria-label="Harness" aria-pressed="false" aria-describedby="architecture-detail-body"><span aria-hidden="true">+</span></button>
+            <button class="architecture-hotspot architecture-vla" type="button" data-architecture-node="vla" aria-label="Frozen VLA" aria-pressed="false" aria-describedby="architecture-detail-body"><span aria-hidden="true">+</span></button>
+            <button class="architecture-hotspot architecture-executor" type="button" data-architecture-node="executor" aria-label="Executor" aria-pressed="false" aria-describedby="architecture-detail-body"><span aria-hidden="true">+</span></button>
+          </div>
+        </div>
+        <figcaption class="architecture-detail">
+          <div class="architecture-detail-copy" aria-live="polite" aria-atomic="true">
+            <strong id="architecture-detail-title">One connected loop.</strong>
+            <p id="architecture-detail-body">Instructions flow out. Feedback comes back. Direct control stays bounded.</p>
+          </div>
+          <button class="architecture-reset" type="button" hidden>Show full loop <span aria-hidden="true">↺</span></button>
+        </figcaption>
+      </figure>
+      <div class="system-principles wide" data-reveal><div><span>01</span><h3>Plan with context.</h3><p>Task instructions, observations, and the policy's profile inform high-level decisions.</p></div><div><span>02</span><h3>Execute with structure.</h3><p>Operation identity, recovery permissions, and action budgets remain explicit.</p></div><div><span>03</span><h3>Verify the outcome.</h3><p>Local progress checks support execution. Environment evidence determines task success.</p></div></div>
+      <div class="new-policy wide" id="new-policy">
+        <div class="centered-copy" data-reveal><p class="eyebrow">A new policy</p><h2 class="display-heading">Profile it.<br> Then run.</h2></div>
+        <div class="system-principles" data-reveal><div><span>01</span><h3>Profile.</h3><p>Run the new policy by itself on <span data-bind="profiling.skills">65</span> single-skill tasks, <span data-bind="profiling.runs_per_skill">15</span> times each: <span data-bind="profiling.episodes">975</span> short episodes. No language model, no training.</p></div><div><span>02</span><h3>Calibrate.</h3><p>Those runs become one small profile: how long each skill usually takes, and how long to wait before calling a stall.</p></div><div><span>03</span><h3>Run.</h3><p>Same harness, same prompts, same rules. Only the profile and a thin input-output adapter are new.</p></div></div>
+        <div class="profiling-claims" data-pending-block="claims"><p><span data-bind="claims.profiling_hours.value">1</span> hour of profiling.¹ Not <span data-bind="claims.retraining_hours.value">100</span> hours of retraining.²</p><p>¹ Wall-clock time of one <span data-bind="profiling.episodes">975</span>-episode profiling run. Measured value pending.</p><p>² Source pending.</p></div>
+      </div>
+    </section>
+
+
+
+    <section class="compare-section section-white" id="compare" aria-labelledby="compare-title">
+      <div class="centered-copy" data-reveal><p class="eyebrow">Side by side</p><h2 class="display-heading" id="compare-title">Two ways to get more<br> from a policy.</h2></div>
+      <div class="comparison-table-wrap wide" data-reveal><table class="comparison-table"><thead><tr><th scope="col"><span class="sr-only">Comparison</span></th><th scope="col">Retraining the policy</th><th scope="col">RoboHarness-Zero</th></tr></thead><tbody><tr><th scope="row">Policy weights</th><td>Changed</td><td>Frozen</td></tr><tr><th scope="row">Task demonstrations</th><td>Required</td><td>None</td></tr><tr><th scope="row">Gradient steps</th><td>Yes</td><td><span data-bind="profiling.gradient_steps">0</span></td></tr><tr><th scope="row">For each new policy</th><td>Train again</td><td>One profiling run (<span data-bind="profiling.episodes">975</span> episodes)</td></tr><tr data-pending-block="claims"><th scope="row">Time to add a policy<small class="draft-label">Draft · not published</small></th><td><span data-bind="claims.retraining_hours.value">100</span> hours²</td><td><span data-bind="claims.profiling_hours.value">1</span> hour¹</td></tr></tbody></table></div>
+      <div class="comparison-mobile wide" data-reveal><article class="comparison-card"><h3>Retraining the policy</h3><dl><div><dt>Policy weights</dt><dd>Changed</dd></div><div><dt>Task demonstrations</dt><dd>Required</dd></div><div><dt>Gradient steps</dt><dd>Yes</dd></div><div><dt>For each new policy</dt><dd>Train again</dd></div><div data-pending-block="claims"><dt>Time to add a policy</dt><dd><span data-bind="claims.retraining_hours.value">100</span> hours²</dd></div></dl></article><article class="comparison-card"><h3>RoboHarness-Zero</h3><dl><div><dt>Policy weights</dt><dd>Frozen</dd></div><div><dt>Task demonstrations</dt><dd>None</dd></div><div><dt>Gradient steps</dt><dd><span data-bind="profiling.gradient_steps">0</span></dd></div><div><dt>For each new policy</dt><dd>One profiling run (<span data-bind="profiling.episodes">975</span> episodes)</dd></div><div data-pending-block="claims"><dt>Time to add a policy</dt><dd><span data-bind="claims.profiling_hours.value">1</span> hour¹</dd></div></dl></article></div>
+    </section>
+
+    <section class="highlights section-white" id="highlights" aria-labelledby="highlights-title">
+      <div class="section-heading wide" data-reveal><h2 id="highlights-title">Three rules.<br> One harness.</h2><a class="text-link" href="#system">See how it works <span aria-hidden="true">↑</span></a></div>
+      <div class="highlight-track" id="highlight-track" aria-label="Method gallery" tabindex="0">
+        <article class="highlight-card planning-card" data-slot="trust-by-default">
+          <div class="card-copy"><p class="card-eyebrow">Trust by default</p><h3>Trust the policy.<br> Watch the goal.</h3><p class="feature-description">The policy gets the whole task. The language model only checks whether the current step is moving.</p></div>
+          <div class="plan-art" aria-hidden="true"><div class="plan-line"></div><div class="plan-item"><span class="plan-dot"></span><div><small>Current target</small><strong>What should happen next?</strong></div></div><div class="plan-item"><span class="plan-dot"></span><div><small>Progress evidence</small><strong>What actually changed?</strong></div></div><div class="plan-item"><span class="plan-dot"></span><div><small>Execution decision</small><strong>Continue or review</strong></div></div></div>
+          <p class="card-stat"><strong data-bind="paired250.no_intervention.percent" data-suffix="%" class="card-stat-number metric-number">88%</strong><span>of episodes that succeed either way never need it to step in.</span></p>
+        </article>
+        <article class="highlight-card execution-card" data-slot="language-before-motion">
+          <div class="card-copy"><p class="card-eyebrow">Language before motion</p><h3>Language first.<br> Motion when needed.</h3><p class="feature-description">Reword the instruction first. Take bounded control only if that fails, then hand back.</p></div>
+          <div class="recovery-art" aria-hidden="true"><span>Language</span><i>↓</i><span>Bounded motion</span><i>↓</i><span class="recovery-art-policy">Back to the VLA <b>↗</b></span></div>
+          <p class="card-stat"><strong data-bind="paired250.control_steps.direct_percent_short" data-suffix="%" class="card-stat-number metric-number">2%</strong><span>of control steps come from its own tools. The policy makes the rest.</span></p>
+        </article>
+        <article class="highlight-card capability-card" data-slot="profiling">
+          <div class="card-copy"><p class="card-eyebrow">Calibrate, don't tune</p><h3>Measure the policy.<br> Keep the rules.</h3><p class="feature-description">One profiling run tells the harness how a new policy moves. The rules and prompts stay the same.</p></div>
+          <div class="capability-art profiling-art" aria-hidden="true"><div><p><span data-bind="profiling.skills">65</span> skills</p></div><div><p>× <span data-bind="profiling.runs_per_skill">15</span> runs</p></div><div><p><span data-bind="profiling.episodes">975</span> episodes</p></div></div>
+          <p class="card-stat"><strong data-bind="profiling.episodes" class="card-stat-number metric-number">975</strong><span>policy-only episodes for each new policy. No training.</span></p>
+        </article>
+      </div>
+      <div class="gallery-controls wide"><span class="gallery-position" aria-live="polite"><b id="gallery-current">1</b><span> / 3</span></span><div class="gallery-arrows"><button class="round-button" id="gallery-prev" type="button" aria-label="Previous method" disabled>‹</button><button class="round-button" id="gallery-next" type="button" aria-label="Next method">›</button></div></div>
+      <p class="attribution-caption wide">Intervention figures are from the <span data-bind="protocol.episodes">250</span>-episode <span data-bind="paired250.llm">GPT-6 Sol</span> attribution study.</p>
+    </section>
+
+    <section class="faq-section section-gray" id="faq" aria-labelledby="faq-title">
+      <div class="centered-copy" data-reveal><h2 class="display-heading" id="faq-title">Questions,<br> answered.</h2></div>
+      <div class="faq-list wide" data-reveal><details open><summary>Is profiling versus retraining a fair comparison?<span class="faq-icon" aria-hidden="true"></span></summary><p>They answer the same question in different ways: how do you get more out of a policy you already have? Retraining changes the weights and can teach new motions. RoboHarness-Zero leaves the weights alone and corrects decisions while the policy runs. What it needs first is one profiling run: <span data-bind="profiling.episodes">975</span> policy-only episodes, with no gradient steps and no language-model calls.</p></details><details><summary>Does it really work with any policy?<span class="faq-icon" aria-hidden="true"></span></summary><p>Nothing in the harness is written for one policy. A new policy needs a thin input-output adapter and one profiling run; the rules, prompts, and tools stay the same. The results on this page use <span data-bind="protocol.policy">Xiaomi-Robotics-1</span>, and more policies are being evaluated. One limit is by design: the harness fixes decisions, not motions, so it helps a policy that can already perform single skills reliably.</p></details><details><summary>What does the language model actually do?<span class="faq-icon" aria-hidden="true"></span></summary><p>Mostly it watches. It holds the plan, checks whether the current step of the task is making progress, and steps in when it stalls: first with a clearer instruction, then, only if needed, with a short stretch of direct control before handing back. In the separate <span data-bind="protocol.episodes">250</span>-episode <span data-bind="paired250.llm">GPT-6 Sol</span> attribution study, <span data-bind="paired250.no_intervention.percent" data-suffix="%">88%</span> of the episodes that succeed both with and without the harness need no intervention, and <span data-bind="paired250.control_steps.direct_percent_short" data-suffix="%">2%</span> of all control steps come from its own tools.</p></details><details><summary>Where does the gain come from?<span class="faq-icon" aria-hidden="true"></span></summary><p>Across the <span data-bind="heldout200.episodes">200</span> matched scenes, <span data-bind="heldout200.cells.harness_only">37</span> policy failures become successes and <span data-bind="heldout200.cells.policy_only">11</span> policy successes become failures. The grouped bars compare success rates within single-skill, seen multi-step, and unseen multi-step tasks on that same subset.</p></details><details><summary>What does it not fix yet?<span class="faq-icon" aria-hidden="true"></span></summary><p>Recovery. In the separate <span data-bind="protocol.episodes">250</span>-episode Sol attribution study, among the <span data-bind="paired250.both_fail.total">76</span> episodes that fail both with and without the harness, it raised a stall alarm in <span data-bind="paired250.both_fail.stall_alarm">63</span>, so noticing the problem is not the bottleneck. Getting the arm out of it is: a recovery could be confirmed in only <span data-bind="paired250.both_fail.confirmed_recovery">2</span>.</p></details><details><summary>How is it evaluated?<span class="faq-icon" aria-hidden="true"></span></summary><p>The headline uses <span data-bind="heldout200.episodes">200</span> selected held-out scenes from <span data-bind="heldout200.tasks">50</span> tasks and <span data-bind="heldout200.scene_batches">4</span> scene batches. Accepted Astra native outcomes are matched by scene to the completed policy-only reference. <span data-bind="heldout200.planning_timeout_overrides">10</span> selected results use a <span data-bind="heldout200.planning_timeout_seconds">600</span>-second planning timeout. The environment decides success. The separate Sol attribution figures use <span data-bind="protocol.episodes">250</span> episodes.</p></details><details><summary>What can the language model see and use?<span class="faq-icon" aria-hidden="true"></span></summary><p>The task instruction, camera images with depth, and feedback from execution. It can reword the instruction, call a small set of bounded motor tools, and read text files. It is given no task-specific hints.</p></details><details><summary>Does it run on a real robot?<span class="faq-icon" aria-hidden="true"></span></summary><p>Not yet. Everything on this page is in simulation. In the separate <span data-bind="protocol.episodes">250</span>-episode <span data-bind="paired250.llm">GPT-6 Sol</span> study, the language model is called about <span data-bind="paired250.llm_requests_per_episode">80</span> times per episode, mostly to look.</p></details></div>
+    </section>
+
+    <section class="resources section-white" id="resources" aria-labelledby="resources-title">
+      <div class="section-heading wide" data-reveal><h2 id="resources-title">Take a closer look.</h2></div>
+      <div class="resource-grid wide" data-reveal>
+        <div class="resource" data-resource="paper" aria-disabled="true"><span class="resource-symbol" aria-hidden="true">↗</span><span class="resource-title">The paper.</span><span class="resource-description">Method, protocol, and full results.</span><span class="resource-link resource-unavailable">Coming soon</span></div>
+        <div class="resource" data-resource="code" aria-disabled="true"><span class="resource-symbol code-symbol" aria-hidden="true">{ }</span><span class="resource-title">The code.</span><span class="resource-description">The harness, the adapters, and the paired evaluation protocol.</span><span class="resource-link resource-unavailable">Coming soon</span></div>
+        <a class="resource" href="assets/study-data.json" target="_blank" rel="noopener"><span class="resource-symbol code-symbol" aria-hidden="true">{ }</span><span class="resource-title">The data.</span><span class="resource-description">Every figure on this page, in one file.</span><span class="resource-link">View the data <span aria-hidden="true">↗</span></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="footer-inner wide"><p>RoboHarness-Zero is a fixed language-model harness for frozen vision-language-action policies.</p><div class="footer-bottom"><a class="wordmark" href="#top"><span class="wordmark-rest">RoboHarness-Zero<span class="wordmark-dot">.</span></span></a><span>© 2026 RoboHarness-Zero. <span class="site-version" data-bind="site_version">v1</span></span><a href="https://github.com/odessey159/EmbodiedLLM-website" target="_blank" rel="noopener">Site source</a><a href="#top">Back to top <span aria-hidden="true">↑</span></a></div></div></footer>
+  <dialog class="detail-dialog" id="detail-dialog" aria-labelledby="dialog-title"><button class="dialog-close" type="button" aria-label="Close details"><span aria-hidden="true">×</span></button><div class="dialog-inner"><p class="dialog-eyebrow" id="dialog-eyebrow"></p><h2 id="dialog-title"></h2><div id="dialog-content"></div></div></dialog>
+  <script id="study-data-fallback" type="application/json">
+{
+  "project": "RoboHarness-Zero",
+  "updated": "2026-11-11",
+  "claims": {
+    "profiling_hours": {
+      "value": 1,
+      "placeholder": true
+    },
+    "retraining_hours": {
+      "value": 100,
+      "placeholder": true
+    }
+  },
+  "protocol": {
+    "benchmark": "RoboCasa365",
+    "policy": "Xiaomi-Robotics-1",
+    "harness_version": "1.2.3.5",
+    "tasks": 50,
+    "scenes_per_task": 5,
+    "episodes": 250,
+    "tasks_by_category": {
+      "atomic": 18,
+      "composite_seen": 16,
+      "composite_unseen": 16
+    }
+  },
+  "paired250": {
+    "llm": "GPT-6 Sol",
+    "policy_alone": {
+      "success": 139,
+      "total": 250,
+      "percent": "55.6"
+    },
+    "with_harness": {
+      "success": 159,
+      "total": 250,
+      "percent": "63.6"
+    },
+    "delta_points": "8.0",
+    "cells": {
+      "both": 124,
+      "policy_only": 15,
+      "harness_only": 35,
+      "neither": 76
+    },
+    "kept": {
+      "success": 124,
+      "total": 139,
+      "percent": "89.2",
+      "lost": 15
+    },
+    "turned_around": {
+      "success": 35,
+      "total": 111,
+      "percent": "31.5",
+      "remaining": 76
+    },
+    "categories": [
+      {
+        "key": "atomic",
+        "label": "Single-skill tasks",
+        "total": 90,
+        "policy_alone": 72,
+        "with_harness": 72,
+        "policy_percent": "80.0",
+        "harness_percent": "80.0"
+      },
+      {
+        "key": "composite_seen",
+        "label": "Multi-step tasks, seen",
+        "total": 80,
+        "policy_alone": 43,
+        "with_harness": 53,
+        "policy_percent": "53.8",
+        "harness_percent": "66.3"
+      },
+      {
+        "key": "composite_unseen",
+        "label": "Multi-step tasks, unseen",
+        "total": 80,
+        "policy_alone": 24,
+        "with_harness": 34,
+        "policy_percent": "30.0",
+        "harness_percent": "42.5"
+      }
+    ],
+    "unseen_ratio": "1.4",
+    "no_intervention": {
+      "count": 109,
+      "total": 124,
+      "percent": "88"
+    },
+    "control_steps": {
+      "total": 76069,
+      "policy": 74515,
+      "direct_tools": 1554,
+      "policy_percent": "97.96",
+      "direct_percent": "2.04",
+      "policy_percent_short": "98",
+      "direct_percent_short": "2"
+    },
+    "both_fail": {
+      "total": 76,
+      "stall_alarm": 63,
+      "confirmed_recovery": 2
+    },
+    "llm_requests_per_episode": "80"
+  },
+  "llm_axis": {
+    "episodes": 200,
+    "sol": {
+      "success": 126,
+      "percent": "63.0",
+      "name": "GPT-6 Sol"
+    },
+    "astra": {
+      "success": 141,
+      "percent": "70.5",
+      "name": "GPT-6 Astra"
+    },
+    "astra_original_timeout": {
+      "success": 139,
+      "percent": "69.5"
+    },
+    "astra_all_five_batches": {
+      "success": 164,
+      "total": 250,
+      "percent": "65.6"
+    },
+    "rerun_episodes": 10,
+    "included_batches": 4,
+    "total_batches": 5
+  },
+  "profiling": {
+    "skills": 65,
+    "runs_per_skill": 15,
+    "episodes": 975,
+    "gradient_steps": 0
+  },
+  "policies": [
+    {
+      "name": "Xiaomi-Robotics-1",
+      "episodes": 200,
+      "policy_percent": "57.5",
+      "harness_percent": "70.5"
+    }
+  ],
+  "links": {
+    "paper": null,
+    "code": null,
+    "bibtex": null
+  },
+  "cases": [
+    {
+      "id": "A07-03",
+      "tab": "A07-03 · Open drawer",
+      "task": "A07-03 · OpenDrawer",
+      "title": "A small correction.<br> The policy does the rest.",
+      "description": "The hand misses the drawer knob. The harness recognizes the failed pull, realigns the open hand, and returns control to the same frozen policy.",
+      "comparison": "matched-policy-only",
+      "facts": [
+        {
+          "value": "442",
+          "label": "Control steps to success"
+        },
+        {
+          "value": "38",
+          "label": "Direct correction steps"
+        },
+        {
+          "value": "84",
+          "label": "Policy steps after handback"
+        }
+      ],
+      "media": {
+        "image": null,
+        "imageMobile": null,
+        "alt": null,
+        "video": null,
+        "videoMobile": null,
+        "poster": null,
+        "labels": null,
+        "stepsPerSecond": null
+      },
+      "segments": [
+        {
+          "from": 1,
+          "to": 320,
+          "by": "policy"
+        },
+        {
+          "from": 321,
+          "to": 358,
+          "by": "direct"
+        },
+        {
+          "from": 359,
+          "to": 442,
+          "by": "policy"
+        }
+      ],
+      "events": [
+        {
+          "step": 320,
+          "kind": "Failed pull recognized",
+          "title": "The knob was missed.",
+          "body": "The target drawer remains closed. Fresh views place the hand below and to the left of its knob after another unchanged policy window. The harness records a missed grasp and requests a bounded alignment correction.",
+          "quote": null
+        },
+        {
+          "step": 321,
+          "end_step": 358,
+          "kind": "Bounded direct correction",
+          "title": "Retreat. Realign. Hand back.",
+          "body": "The harness uses 38 direct control steps: an open-hand retreat through step 336, then lateral and vertical alignment through step 358. The drawer is still closed; the correction prepares the policy to engage the knob.",
+          "quote": null
+        },
+        {
+          "step": 359,
+          "kind": "Policy handback",
+          "title": "The same policy resumes.",
+          "body": "Direct correction ends at step 358. From step 359, the frozen VLA resumes with the original instruction and executes the remaining 84 control steps.",
+          "quote": "Open the left drawer."
+        },
+        {
+          "step": 442,
+          "kind": "Environment outcome",
+          "title": "The drawer opens.",
+          "body": "Substantial opening is observed at step 438. The environment confirms task success at step 442. The episode contains 404 VLA-generated steps and 38 direct correction steps.",
+          "quote": null
+        }
+      ],
+      "reference": "Selected 200-scene Astra view · Harness 1.2.3.5. The accepted policy-only run on this scene fails at the 750-step limit; the Harness run succeeds at step 442.",
+      "comparison_story": {
+        "cohort_label": "Selected 200 · GPT-6 Astra",
+        "reference_label": "Policy only",
+        "reference_subtitle": "Matched scene",
+        "reference_step": 750,
+        "reference_title": "The requested drawer never opens.",
+        "reference_body": "Repeated attempts miss the intended engagement. The policy later moves toward another drawer handle and reaches its limit without task success.",
+        "current_label": "With Harness",
+        "current_subtitle": "Harness 1.2.3.5",
+        "context_note": "One bounded alignment phase. The original instruction stays unchanged.",
+        "default_event": 1,
+        "milestones": [
+          {
+            "event_index": 0,
+            "phase": "01 · Recognize",
+            "step_label": "Step 320",
+            "title": "The pull missed.",
+            "body": "The hand is low and left of the knob. The drawer remains closed.",
+            "variant": "recognition"
+          },
+          {
+            "event_index": 1,
+            "phase": "02 · Intervene",
+            "step_label": "Steps 321–358",
+            "title": "Realign the open hand.",
+            "body": "38 direct control steps to retreat and align with the knob.",
+            "variant": "intervention"
+          },
+          {
+            "event_index": 3,
+            "phase": "03 · Succeed",
+            "step_label": "Step 442",
+            "title": "The policy opens it.",
+            "body": "Handback at step 359. Another 84 policy steps complete the task.",
+            "variant": "outcome"
+          }
+        ],
+        "extra_events": [
+          {
+            "event_index": 2,
+            "label": "Inspect policy handback · Step 359"
+          }
+        ],
+        "step_note": "38 of 442 steps are direct correction (8.6%). Milestone spacing is not elapsed time."
+      }
+    },
+    {
+      "id": "U07-historical",
+      "tab": "Historical U07 · Tool selection",
+      "task": "Historical U07 · CuttingToolSelection",
+      "title": "The right motion.<br> The wrong tool.",
+      "description": "A black-handled knife and a green Y-shaped peeler share the drawer. The task needs a tool for removing cucumber skin. The policy selects the knife; the harness identifies the mismatch and redirects execution to the peeler.",
+      "comparison": "historical-policy-only",
+      "facts": [
+        {
+          "value": "817",
+          "label": "Control steps to success"
+        },
+        {
+          "value": "157",
+          "label": "Direct correction steps"
+        },
+        {
+          "value": "180",
+          "label": "Policy steps after handback"
+        }
+      ],
+      "media": {
+        "image": null,
+        "imageMobile": null,
+        "alt": null,
+        "video": null,
+        "videoMobile": null,
+        "poster": null,
+        "labels": null,
+        "stepsPerSecond": null
+      },
+      "segments": [
+        {
+          "from": 1,
+          "to": 480,
+          "by": "policy"
+        },
+        {
+          "from": 481,
+          "to": 637,
+          "by": "direct"
+        },
+        {
+          "from": 638,
+          "to": 817,
+          "by": "policy"
+        }
+      ],
+      "events": [
+        {
+          "step": 321,
+          "kind": "Earlier instruction focus",
+          "title": "Naming the peeler was not enough.",
+          "body": "At step 321 the effective policy instruction focuses on the green-handled peeler. The policy nevertheless delivers the black-handled knife by step 480. This earlier language change alone does not resolve the target-selection error.",
+          "quote": "Place the green-handled peeler on the cutting board."
+        },
+        {
+          "step": 480,
+          "kind": "Wrong target recognized",
+          "title": "The knife is the wrong choice.",
+          "body": "The wrist view shows the black-handled knife on the board over the cucumber, while the green Y-shaped peeler remains at its source. The harness records an explicit wrong-target conflict and authorizes a bounded correction.",
+          "quote": null
+        },
+        {
+          "step": 481,
+          "end_step": 637,
+          "kind": "Bounded direct correction",
+          "title": "Redirect the approach to the peeler.",
+          "body": "The harness uses 157 direct control steps to approach the green peeler, adjust alignment and close the fingers. Retention is still unconfirmed at step 637. The policy is handed back rather than claiming that direct control has already completed the grasp.",
+          "quote": null
+        },
+        {
+          "step": 638,
+          "kind": "Policy handback",
+          "title": "Let the policy finish the correct selection.",
+          "body": "The VLA resumes from step 638 under the peeler-focused instruction. At step 679 it is reacquiring the correct peeler. Policy execution continues through the final placement and verified success.",
+          "quote": "Place the green-handled peeler on the cutting board."
+        },
+        {
+          "step": 817,
+          "kind": "Environment outcome",
+          "title": "The correct tool reaches the board.",
+          "body": "The environment confirms task success at step 817. The run contains 157 direct correction steps and 660 steps executed by policy tools, including the final 180 steps after handback.",
+          "quote": null
+        }
+      ],
+      "reference": "Historical 72-case set · Harness 1.2.3.5. The source policy-only run selects the knife first and fails at 1,200 steps. This mechanism case is separate from the selected 200-scene Astra results.",
+      "comparison_story": {
+        "cohort_label": "Historical 72 · Mechanism case",
+        "reference_label": "Policy only",
+        "reference_subtitle": "Historical source run",
+        "reference_step": 1200,
+        "reference_title": "The knife is selected first.",
+        "reference_body": "The policy delivers the knife before retrieving the peeler. The full task remains unsuccessful at the 1,200-step limit.",
+        "current_label": "With Harness",
+        "current_subtitle": "Harness 1.2.3.5",
+        "context_note": "An earlier peeler-focused instruction at step 321 did not prevent the wrong-tool selection. The motor correction follows the explicit conflict at step 480.",
+        "default_event": 2,
+        "milestones": [
+          {
+            "event_index": 1,
+            "phase": "01 · Recognize",
+            "step_label": "Step 480",
+            "title": "Knife, not peeler.",
+            "body": "The knife is on the board. The green peeler is still in the drawer.",
+            "variant": "recognition"
+          },
+          {
+            "event_index": 2,
+            "phase": "02 · Intervene",
+            "step_label": "Steps 481–637",
+            "title": "Correct the target approach.",
+            "body": "157 direct control steps redirect and align the hand toward the green peeler.",
+            "variant": "intervention"
+          },
+          {
+            "event_index": 4,
+            "phase": "03 · Succeed",
+            "step_label": "Step 817",
+            "title": "The correct tool is placed.",
+            "body": "Handback at step 638. Another 180 policy steps reach task success.",
+            "variant": "outcome"
+          }
+        ],
+        "extra_events": [
+          {
+            "event_index": 0,
+            "label": "Earlier language focus · Step 321"
+          },
+          {
+            "event_index": 3,
+            "label": "Inspect policy handback · Step 638"
+          }
+        ],
+        "step_note": "157 of 817 steps are direct correction (19.2%). Historical case; milestone spacing is not elapsed time."
+      }
+    }
+  ],
+  "case_scope": {
+    "eyebrow": "A07-03 and historical U07 · Recorded mechanism cases",
+    "title": "Recognize. Correct.<br> Hand back.",
+    "content": "<p><strong>A07-03 · OpenDrawer.</strong> The selected 200-scene GPT-6 Astra view contains this Harness 1.2.3.5 run. The accepted policy-only reference on the same scene fails at its 750-step limit. The Harness identifies a missed knob engagement at step 320, executes 38 direct correction steps and hands back at step 359. Native success occurs at step 442.</p><p class=\"dialog-paragraph\"><strong>Historical U07 · CuttingToolSelection.</strong> This is the historical 72-case run from October 24, 2026, separate from the selected 200-scene Astra view. Its source policy-only attempt fails at 1,200 steps. A peeler-focused instruction at step 321 does not stop the Harness run from choosing the knife. An explicit wrong-target conflict at step 480 is followed by 157 direct correction steps, policy handback at step 638 and native success at step 817.</p><p class=\"dialog-paragraph\">The cases show recorded failure, targeted correction and later success. The two comparisons do not establish identical action prefixes or isolate the counterfactual effect of one correction. Their direct-step shares are per-case values; the separate 2.04% pooled attribution belongs to the 250-episode Sol study.</p>"
+  },
+  "site_version": "v1",
+  "heldout200": {
+    "episodes": 200,
+    "tasks": 50,
+    "scene_batches": 4,
+    "llm": "GPT-6 Astra",
+    "policy_alone": {
+      "success": 115,
+      "total": 200,
+      "percent": "57.5"
+    },
+    "with_harness": {
+      "success": 141,
+      "total": 200,
+      "percent": "70.5"
+    },
+    "cells": {
+      "neither": 48,
+      "both": 104,
+      "policy_only": 11,
+      "harness_only": 37
+    },
+    "kept": {
+      "success": 104,
+      "total": 115,
+      "lost": 11,
+      "percent": "90.4",
+      "lost_percent": "9.6"
+    },
+    "turned_around": {
+      "success": 37,
+      "total": 85,
+      "remaining": 48,
+      "percent": "43.5",
+      "remaining_percent": "56.5"
+    },
+    "categories": [
+      {
+        "key": "atomic",
+        "label": "Single-skill tasks",
+        "total": 72,
+        "policy_alone": 59,
+        "with_harness": 62
+      },
+      {
+        "key": "composite_seen",
+        "label": "Multi-step tasks, seen",
+        "total": 64,
+        "policy_alone": 35,
+        "with_harness": 45
+      },
+      {
+        "key": "composite_unseen",
+        "label": "Multi-step tasks, unseen",
+        "total": 64,
+        "policy_alone": 21,
+        "with_harness": 34
+      }
+    ],
+    "cumulative": [
+      {
+        "key": "atomic",
+        "label": "Single-skill",
+        "category": "Single-skill tasks",
+        "added_episodes": 72,
+        "episodes": 72,
+        "policy_added": 59,
+        "harness_added": 62,
+        "policy": 59,
+        "harness": 62
+      },
+      {
+        "key": "composite_seen",
+        "label": "+ Seen multi-step",
+        "category": "Multi-step tasks, seen",
+        "added_episodes": 64,
+        "episodes": 136,
+        "policy_added": 35,
+        "harness_added": 45,
+        "policy": 94,
+        "harness": 107
+      },
+      {
+        "key": "composite_unseen",
+        "label": "+ Unseen multi-step",
+        "category": "Multi-step tasks, unseen",
+        "added_episodes": 64,
+        "episodes": 200,
+        "policy_added": 21,
+        "harness_added": 34,
+        "policy": 115,
+        "harness": 141
+      }
+    ],
+    "additional_successes": 26,
+    "planning_timeout_overrides": 10,
+    "planning_timeout_seconds": 600,
+    "scope": "Selected supplemental native outcomes, matched by scene to the accepted policy-only reference. Includes disclosed planning-timeout overrides.",
+    "relative_success_rate_gain_percent": "22.6",
+    "unseen_lift": {
+      "episodes": 64,
+      "policy_success": 21,
+      "harness_success": 34,
+      "policy_percent": "32.8",
+      "harness_percent": "53.1",
+      "relative_percent": "61.9"
+    }
+  },
+  "timing_comparison": {
+    "reference": {
+      "method": "HexaShell",
+      "benchmark": "RoboCasa365",
+      "model": "GPT-6 Astra",
+      "reasoning_effort": "xhigh",
+      "task_skills": true,
+      "scope": "Published full-episode runtime",
+      "mean_episode_seconds": 543,
+      "mean_episode_minutes": "9.05",
+      "source_url": "https://hexafuture.ai/blog/hexashell-universal/assets/HexaShell-Universal-20261104.pdf#page=45"
+    },
+    "estimate": {
+      "method": "RoboHarness-Zero",
+      "model": "GPT-6 Astra",
+      "scope": "Hypothetical LLM-request time only",
+      "episodes": 200,
+      "requests": 14196,
+      "request_speedup": 8,
+      "observed_llm_hours": 70.43269827258308,
+      "observed_llm_hours_display": "70.43",
+      "estimated_llm_hours": 8.804087284072885,
+      "estimated_llm_hours_display": "8.80",
+      "mean_llm_minutes": "2.64",
+      "reference_bar_percent": 29.184819726208456,
+      "verified_service_tier": null,
+      "categories": [
+        {
+          "label": "Single-skill",
+          "episodes": 72,
+          "mean_llm_minutes": 0.7512185800418525,
+          "display_value": "45",
+          "display_unit": "s"
+        },
+        {
+          "label": "Multi-step, seen",
+          "episodes": 64,
+          "mean_llm_minutes": 2.863893509999798,
+          "display_value": "2.86",
+          "display_unit": "min"
+        },
+        {
+          "label": "Multi-step, unseen",
+          "episodes": 64,
+          "mean_llm_minutes": 4.544817416271447,
+          "display_value": "4.54",
+          "display_unit": "min"
+        }
+      ]
+    },
+    "qualification": "Different timing scopes and evaluation protocols. This is not a measured speedup or an Ultrafast benchmark. All recorded request durations, including failed and cancelled requests, are divided by eight with the sequence fixed. VLA, robot execution, initialization and teardown are excluded from the estimate."
+  }
+}
+  </script>
+</body>
+</html>
