@@ -146,7 +146,7 @@
     }
   ],
   "links": {
-    "paper": null,
+    "paper": "https://arxiv.org/abs/2611.30550",
     "code": "https://github.com/polyadic-research/roboharness0",
     "bibtex": null
   },

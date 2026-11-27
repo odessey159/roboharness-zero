@@ -666,7 +666,7 @@ function applyStudyData(data, source) {
 // assets/study-data.json remains the canonical editable data source.
 const fallbackStudyData = JSON.parse(document.querySelector('#study-data-fallback').textContent);
 applyStudyData(fallbackStudyData, 'fallback');
-fetch('assets/study-data.json?v=resource-links-1')
+fetch('assets/study-data.json?v=resource-links-2')
   .then(response => { if (!response.ok) throw new Error('Study data unavailable'); return response.json(); })
   .then(data => {
     // An older cached data file must not replace the complete inline snapshot.
